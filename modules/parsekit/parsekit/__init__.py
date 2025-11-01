@@ -2,7 +2,7 @@
 
 
 from .parsekit.tokenizer import *
-from .parsekit.combinator import *
+from .combinator import *
 
 
 __all__ = [

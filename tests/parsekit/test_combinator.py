@@ -2,7 +2,7 @@
 import pytest
 
 from typing import List
-from parsekit import *
+from parsekit.parsekit import *
 
 # ヘルパ: 楽に Token を作る
 def T(v: str, line: int = 1, col: int = 1) -> Token:

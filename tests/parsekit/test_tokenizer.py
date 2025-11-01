@@ -3,7 +3,7 @@ import pytest
 from typing import Dict, Tuple
 
 
-from parsekit import *
+from parsekit.parsekit import *
 
 
 def test_token_str_and_repr():
