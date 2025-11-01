@@ -61,10 +61,10 @@ class Node:
 		self._on_fail = _on_fail
 		return self
 	
-	def __add__(self, other: Self|"SequenceNode"|"ChoiceNode"|"RepeatNode"|"PackNode") -> "SequenceNode":
+	def __add__(self, other: "Node") -> "SequenceNode":
 		return SequenceNode(self, other)
 	
-	def __or__(self, other: Self|"SequenceNode"|"ChoiceNode"|"RepeatNode"|"PackNode") -> "ChoiceNode":
+	def __or__(self, other: "Node") -> "ChoiceNode":
 		return ChoiceNode(self, other)
 
 	def repeat(self, min_times: int, max_times: int|None = None) -> "RepeatNode":
