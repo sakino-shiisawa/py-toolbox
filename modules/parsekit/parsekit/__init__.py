@@ -1,7 +1,7 @@
 
 
 
-from .parsekit.tokenizer import *
+from .tokenizer import *
 from .combinator import *
 
 
