@@ -108,7 +108,7 @@ FunctionNode = \
 ## インストール
 
 ```bash
-pip install "git+https://github.com/sakino-shiisawa/py-toolbox.git@main#subdirectory=modules/parsekit"
+python -m pip install "parsekit @ git+https://github.com/sakino-shiisawa/py-toolbox.git@main#subdirectory=modules/parsekit" --target ./script/modules --no-deps --upgrade
 ```
 
 ## サンプルコード
