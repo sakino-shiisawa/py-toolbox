@@ -170,7 +170,7 @@ def test_repeatnode_raises_if_min_not_met():
 def test_choicenode_picks_first_that_matches():
 	a = Node(token_type=Token).expected("A").gather()
 	b = Node(token_type=Token).expected("B").gather()
-	ch = ChoiceNode(a, b)
+	ch = a | b
 
 	res, rest = ch.parse("A|B", [T("A"), T("B")])
 	assert [str(x) for x in res] == ["A"]
@@ -180,7 +180,7 @@ def test_choicenode_picks_first_that_matches():
 def test_choicenode_picks_second_if_first_fails():
 	a = Node(token_type=Token).expected("A").gather()
 	b = Node(token_type=Token).expected("B").gather()
-	ch = ChoiceNode(a, b)
+	ch = a | b
 
 	res, rest = ch.parse("B only", [T("B"), T("C")])
 	assert [str(x) for x in res] == ["B"]
@@ -190,7 +190,7 @@ def test_choicenode_picks_second_if_first_fails():
 def test_choicenode_raises_if_both_fail():
 	a = Node(token_type=Token).expected("A")
 	b = Node(token_type=Token).expected("B")
-	ch = ChoiceNode(a, b)
+	ch = a | b
 
 	with pytest.raises(ParseError) as e:
 		ch.parse("X", [T("X")])
@@ -200,7 +200,7 @@ def test_choicenode_raises_if_both_fail():
 def test_choicenode_gather_sets_children_to_gather():
 	a = Node(token_type=Token).expected("A")
 	b = Node(token_type=Token).expected("B")
-	ch = ChoiceNode(a, b).gather()  # 子の gather() を有効化する設計
+	ch = (a | b).gather()  # 子の gather() を有効化する設計
 
 	res, rest = ch.parse("A or B", [T("A"), T("B")])
 	assert [str(x) for x in res] == ["A"]
