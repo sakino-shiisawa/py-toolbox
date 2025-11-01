@@ -99,6 +99,9 @@ class Node:
 		tail = tokens[1:]
 		val = str(head)
 
+		if not self._expected_value and not self._unexpected_value:
+			return ([head], tail)
+
 		matched= False
 		if self._expected_value is not None:
 			matched = (val == self._expected_value)
