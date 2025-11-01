@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+
+[project]
+name = "parsekit"
+version = "0.1.0"
+python = ">=3.10"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-q --strict-markers --cov=parsekit --cov-report=term-missing"
+
+[tool.coverage.run]
+branch = true
+source = ["modulles/parsekit"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
