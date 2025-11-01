@@ -1,8 +1,8 @@
 
 
 
-from .tokenizer import *
-from .combinator import *
+from .parsekit.tokenizer import *
+from .parsekit.combinator import *
 
 
 __all__ = [
