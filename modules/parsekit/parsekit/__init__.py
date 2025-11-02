@@ -7,5 +7,6 @@ from .combinator import *
 
 __all__ = [
 	"tokenize", "Token", "TokenConstructor",
-	"Node", "RepeatNode", "SequenceNode", "ChoiceNode", "PackNode", "ParseError"
+	"Node", "RepeatNode", "SequenceNode", "ChoiceNode", "PackNode", "ParseError",
+	"ParseResult", "ParseReturn",
 ]
