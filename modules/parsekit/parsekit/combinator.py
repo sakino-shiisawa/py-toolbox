@@ -16,7 +16,7 @@ def _error_message(text: str, tok: Token|None, message: str) -> str: # type: ign
 	else:
 		line_content = lines[line - 1] # type: ignore
 
-	pointer_line = " " * column + "^" + message
+	pointer_line = " " * (column - 1) + "^" + message
 	return f"\n{line_content}\n{pointer_line}"
 
 class ParseError(SyntaxError):
