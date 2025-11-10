@@ -24,6 +24,10 @@ class ParseError(SyntaxError):
 		super().__init__(f"{tok} - {message}")
 		self.token = tok
 
+class FatalParseError(ParseError):
+	def __init__(self, tok: Token | None, message: str):
+		super().__init__(tok, message)
+
 
 ParseResult: TypeAlias = List[Union[Token, "ParseResult"]]
 
@@ -148,6 +152,8 @@ class PackNode(Node):
 			(sub_result, tokens) = self._node.parse(text, tokens)
 			if sub_result:
 				result.append(sub_result)
+		except FatalParseError:
+			raise
 		except ParseError as e:
 			if self._on_fail:
 				self._on_fail(e)
@@ -188,6 +194,8 @@ class SequenceNode(Node):
 			(sub_result, new_tokens) = self._rhs.parse(text, new_tokens)
 			if sub_result:
 				result.extend(sub_result)
+		except FatalParseError:
+			raise
 		except ParseError as e:
 			# Call failure handler if provided
 			if self._on_fail:
@@ -234,6 +242,8 @@ class RepeatNode(Node):
 				if sub_result:
 					result.extend(sub_result)
 				count += 1
+			except FatalParseError:
+				raise
 			except ParseError as e:
 				# Fail if minimum repetitions not met
 				if count < self._min_times:
@@ -269,6 +279,8 @@ class ChoiceNode(Node):
 		for node in [self._first, self._second]:
 			try:
 				return node.parse(text, tokens)
+			except FatalParseError:
+				raise
 			except ParseError as e:
 				if self._on_fail:
 					self._on_fail(e)
@@ -281,3 +293,21 @@ class ChoiceNode(Node):
 				raise e
 		
 		return ([], tokens)
+	
+class FatalNode(Node):
+	_node: Node
+
+	def __init__(self, node: Node):
+		super().__init__()
+		self._node = node
+
+	def parse(self, text: str, tokens: List[Token]) -> ParseReturn:
+		try:
+			return self._node.parse(text, tokens)
+		except FatalParseError:
+			raise
+		except ParseError as e:
+			raise FatalParseError(e.token, str(e)) from e
+		
+def Fatal(node: Node) -> FatalNode:
+	return FatalNode(node)
