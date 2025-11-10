@@ -8,5 +8,5 @@ from .combinator import *
 __all__ = [
 	"tokenize", "Token", "TokenConstructor",
 	"Node", "RepeatNode", "SequenceNode", "ChoiceNode", "PackNode", "FatalNode", "ParseError", "FatalParseError",
-	"ParseResult", "ParseReturn",
+	"Fatal", "ParseResult", "ParseReturn",
 ]
