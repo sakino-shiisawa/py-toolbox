@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "templates"
+version = "0.1.0"
+description = "A simple template engine for Python with directive-based control flow and `${expr}` interpolation"
+authors = [{ name = "Shiisawa Sakino", email = "sakino.shiisawa@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = []
+
+[tool.setuptools]
+packages = ["templates"]
